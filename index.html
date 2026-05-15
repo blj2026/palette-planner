@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>palette planner</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@500;600;700;800&display=swap');
+    @import url("https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700;800;900&family=IBM+Plex+Mono:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap");
     :root {
       --bg:#e8e2d8; --paper:#fbf7ee; --paper2:#f5ede0; --ink:#151515; --muted:#655d54;
       --line:#bdb4a6; --line2:#9f9485; --accent:#b97939; --shadow:0 14px 32px rgba(23,23,23,.12);
@@ -64,6 +64,447 @@
       #comboName { font-size:16px !important; }
       .btn { font-size:12px !important; min-height:42px !important; }
       details.section > summary { font-size:12px !important; }
+    }
+
+  
+
+    /* v9 clean-app visual pass: chart-first, masculine, no fake controls */
+    :root {
+      --bg:#f2eee7;
+      --paper:#fffdf8;
+      --paper2:#f7f1e8;
+      --ink:#101010;
+      --muted:#5f5a52;
+      --line:#d3c9bc;
+      --line2:#aaa092;
+      --deep:#061e38;
+      --deep2:#0a2746;
+      --accent:#2d6b66;
+      --gold:#b37a14;
+      --shadow:0 14px 34px rgba(16,16,16,.10);
+      --font-ui:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --font-display:"Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+      --font-mono:"IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+    }
+    html { font-size:14px; }
+    body {
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(6,30,56,.08), transparent 28rem),
+        linear-gradient(rgba(16,16,16,.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,16,16,.026) 1px, transparent 1px),
+        var(--bg);
+      background-size:auto, 30px 30px, 30px 30px, auto;
+      font-family:var(--font-ui) !important;
+    }
+    .page { padding:14px 12px 28px; max-width:790px; }
+    .hero {
+      position:relative !important;
+      top:auto !important;
+      border:0 !important;
+      border-radius:0 !important;
+      box-shadow:none !important;
+      background:transparent !important;
+      backdrop-filter:none !important;
+      padding:10px 2px 14px !important;
+      margin-bottom:0 !important;
+      justify-content:flex-start !important;
+    }
+    .brand { gap:12px !important; }
+    .logo { width:54px !important; height:54px !important; }
+    h1 {
+      font-family:var(--font-display) !important;
+      font-size:42px !important;
+      line-height:.86 !important;
+      font-weight:900 !important;
+      letter-spacing:.005em !important;
+      text-transform:uppercase !important;
+    }
+    .tagline {
+      font-family:var(--font-display) !important;
+      font-style:normal !important;
+      font-size:15px !important;
+      line-height:1 !important;
+      letter-spacing:.14em !important;
+      font-weight:800 !important;
+      color:#5c5a45 !important;
+      text-transform:uppercase !important;
+      margin-top:5px !important;
+    }
+    .card {
+      background:rgba(255,253,248,.96) !important;
+      border:1px solid var(--line) !important;
+      border-radius:17px !important;
+      box-shadow:0 12px 32px rgba(16,16,16,.095) !important;
+    }
+    .chart-card {
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      padding:12px !important;
+      overflow:hidden;
+    }
+    .combo-strip {
+      order:0;
+      margin:0 !important;
+      padding:0 !important;
+      background:transparent !important;
+      color:var(--ink) !important;
+      box-shadow:none !important;
+      border-radius:0 !important;
+      display:grid !important;
+      grid-template-columns:minmax(0,1fr) auto auto;
+      align-items:center;
+      gap:8px;
+    }
+    .combo-left { gap:12px !important; min-width:0; }
+    #comboName {
+      font-family:var(--font-mono) !important;
+      font-size:22px !important;
+      font-weight:700 !important;
+      letter-spacing:-.045em !important;
+      text-transform:lowercase !important;
+      color:#10233a !important;
+    }
+    .dots { gap:8px !important; }
+    .dot { width:28px !important; height:28px !important; border:1px solid rgba(16,16,16,.28) !important; box-shadow:0 2px 6px rgba(16,16,16,.08); }
+    .icon-btn {
+      width:42px !important;
+      height:38px !important;
+      border:1px solid var(--line2) !important;
+      background:#fffdf8 !important;
+      color:#151515 !important;
+      border-radius:12px !important;
+      font-size:20px !important;
+      line-height:1 !important;
+      box-shadow:0 4px 10px rgba(16,16,16,.05);
+    }
+    .chart-top {
+      order:1;
+      position:absolute;
+      top:21px;
+      right:18px;
+      margin:0 !important;
+      font-family:var(--font-display) !important;
+      font-size:18px !important;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      color:#161616 !important;
+      z-index:2;
+    }
+    .toggle { gap:7px !important; }
+    .toggle input { width:22px; height:22px; accent-color:#111; }
+    .chart-scroll {
+      order:2;
+      margin-top:0 !important;
+      padding:0 !important;
+      border:0 !important;
+      border-radius:12px !important;
+      background:#e9e1d6 !important;
+      box-shadow:inset 0 0 0 1px rgba(16,16,16,.08), 0 8px 18px rgba(16,16,16,.06);
+    }
+    #chart {
+      transform:scale(.80) !important;
+      transform-origin:top left !important;
+      margin-bottom:-52px !important;
+    }
+    .actions {
+      order:3;
+      grid-template-columns:1fr 1fr !important;
+      gap:8px !important;
+      margin-top:0 !important;
+    }
+    .btn {
+      font-family:var(--font-display) !important;
+      font-size:19px !important;
+      font-weight:800 !important;
+      letter-spacing:.06em !important;
+      text-transform:uppercase !important;
+      min-height:55px !important;
+      border-radius:12px !important;
+      border-color:#bdb4a6 !important;
+      background:#fffdf8 !important;
+      color:#111 !important;
+      box-shadow:0 4px 10px rgba(16,16,16,.045);
+    }
+    .btn.primary {
+      background:linear-gradient(180deg,#08233f,#061a31) !important;
+      color:#fff !important;
+      border-color:#061a31 !important;
+    }
+    .btn.save-action {
+      background:#fffdf8 !important;
+      color:#10233a !important;
+      border-color:#a9a195 !important;
+    }
+    .btn.save-action.active-save {
+      background:#10233a !important;
+      color:#fff !important;
+      border-color:#10233a !important;
+    }
+    .btn:disabled { opacity:.36 !important; background:#f5efe6 !important; color:#9b9288 !important; box-shadow:none !important; }
+    details.section {
+      margin-top:10px !important;
+      border:1px solid var(--line) !important;
+      border-radius:15px !important;
+      background:rgba(255,253,248,.96) !important;
+      box-shadow:0 8px 22px rgba(16,16,16,.07) !important;
+    }
+    details.section > summary {
+      font-family:var(--font-display) !important;
+      font-size:22px !important;
+      font-weight:800 !important;
+      letter-spacing:.04em !important;
+      text-transform:uppercase !important;
+      padding:16px 18px !important;
+      color:#111 !important;
+    }
+    details.section > summary:after { font-family:var(--font-ui); font-size:25px; font-weight:800; }
+    .section-body { padding:0 14px 14px !important; }
+    .roles-row { gap:7px !important; }
+    .role-card {
+      background:#fffaf2 !important;
+      border-color:#d4cabd !important;
+      border-radius:13px !important;
+      min-height:98px !important;
+      padding:8px 5px !important;
+    }
+    .role-card.active { outline:2px solid #10233a !important; }
+    .role-dot { width:34px !important; height:34px !important; border-radius:10px !important; }
+    .role-label { font-family:var(--font-display) !important; font-size:12px !important; letter-spacing:.04em !important; }
+    .role-num { font-family:var(--font-mono) !important; font-size:11px !important; letter-spacing:-.03em !important; }
+    .lock-wrap { font-size:0 !important; margin-top:6px !important; }
+    .lock-check { width:18px !important; height:18px !important; accent-color:#10233a !important; }
+    .palette-tools { gap:8px !important; }
+    .search, .save-body input, .save-body textarea {
+      font-family:var(--font-ui) !important;
+      border-radius:12px !important;
+      background:#fffdf8 !important;
+      border-color:#c8beb1 !important;
+    }
+    .active-pill, .filter { font-family:var(--font-display) !important; letter-spacing:.04em !important; border-radius:12px !important; }
+    .filter.active, .active-pill { background:#10233a !important; }
+    .color-btn { border-radius:12px !important; background:#fffdf8 !important; }
+    .color-swatch { border-radius:50% !important; height:34px !important; }
+    .color-num { font-family:var(--font-mono) !important; }
+    .drawer-backdrop { background:rgba(16,16,16,.28) !important; }
+    .save-panel {
+      background:#fffdf8 !important;
+      border-color:#d2c8bb !important;
+      border-radius:24px 24px 0 0 !important;
+      padding:14px 14px 20px !important;
+    }
+    .drawer-title { font-family:var(--font-display) !important; font-size:22px !important; letter-spacing:.04em !important; }
+    .field-label { font-family:var(--font-display) !important; font-size:13px !important; letter-spacing:.04em !important; }
+    @media (max-width:420px) {
+      .page { padding:11px 10px 24px; }
+      .logo { width:49px !important; height:49px !important; }
+      h1 { font-size:35px !important; }
+      .tagline { font-size:13px !important; letter-spacing:.12em !important; }
+      .chart-card { padding:10px !important; gap:9px; }
+      #comboName { font-size:21px !important; max-width:210px; }
+      .dot { width:25px !important; height:25px !important; }
+      .chart-top { top:18px; right:14px; font-size:16px !important; }
+      #chart { transform:scale(.76) !important; margin-bottom:-62px !important; }
+      .btn { font-size:18px !important; min-height:52px !important; }
+      details.section > summary { font-size:21px !important; padding:15px 16px !important; }
+      .palette { grid-template-columns:repeat(4,minmax(0,1fr)) !important; }
+    }
+
+
+    /* v10 typography: not Microsoft Word, no cursive/girlie, stronger product identity */
+    :root {
+      --font-ui:"Space Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-display:"Anton", "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+      --font-condensed:"Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+      --font-mono:"IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+    }
+    body, button, input, textarea {
+      font-family:var(--font-ui) !important;
+      font-feature-settings:"kern" 1, "liga" 1;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:geometricPrecision;
+    }
+    h1 {
+      font-family:var(--font-display) !important;
+      font-size:39px !important;
+      line-height:.83 !important;
+      font-weight:400 !important;
+      letter-spacing:.018em !important;
+      text-transform:uppercase !important;
+    }
+    .tagline {
+      font-family:var(--font-condensed) !important;
+      font-style:normal !important;
+      font-size:15px !important;
+      line-height:1 !important;
+      font-weight:800 !important;
+      letter-spacing:.16em !important;
+      color:#6f4f2d !important;
+      text-transform:uppercase !important;
+      margin-top:5px !important;
+    }
+    #comboName {
+      font-family:var(--font-mono) !important;
+      font-size:21px !important;
+      line-height:1 !important;
+      font-weight:700 !important;
+      letter-spacing:-.055em !important;
+      color:#10233a !important;
+      text-transform:lowercase !important;
+    }
+    .btn,
+    details.section > summary,
+    .drawer-title,
+    .field-label,
+    .role-label,
+    .active-pill,
+    .filter,
+    .chart-top {
+      font-family:var(--font-condensed) !important;
+      font-weight:800 !important;
+      letter-spacing:.075em !important;
+      text-transform:uppercase !important;
+    }
+    .btn {
+      font-size:20px !important;
+      line-height:1 !important;
+    }
+    details.section > summary {
+      font-size:22px !important;
+      line-height:1 !important;
+    }
+    .chart-top {
+      font-size:17px !important;
+      letter-spacing:.07em !important;
+    }
+    .role-num,
+    .color-num,
+    .saved-title,
+    .saved-meta,
+    .metric-top strong {
+      font-family:var(--font-mono) !important;
+      letter-spacing:-.035em !important;
+    }
+    .saved-title {
+      font-size:13px !important;
+      font-weight:700 !important;
+      text-transform:lowercase !important;
+    }
+    .color-name,
+    .role-name,
+    .saved-note,
+    .metric-top span,
+    .empty,
+    .drawer-sub,
+    .save-body input,
+    .save-body textarea,
+    .search {
+      font-family:var(--font-ui) !important;
+      font-weight:500 !important;
+      letter-spacing:-.01em !important;
+    }
+    .drawer-title { font-size:24px !important; }
+    .field-label { font-size:14px !important; }
+    .save-body input::placeholder,
+    .save-body textarea::placeholder,
+    .search::placeholder {
+      font-family:var(--font-ui) !important;
+      font-weight:500 !important;
+      color:#766d63 !important;
+    }
+    @media (max-width:420px) {
+      h1 { font-size:35px !important; }
+      .tagline { font-size:13px !important; letter-spacing:.15em !important; }
+      #comboName { font-size:21px !important; }
+      .btn { font-size:20px !important; }
+      details.section > summary { font-size:22px !important; }
+    }
+
+  
+
+    /* v11: all-mono typography system — intentional, not mixed */
+    :root {
+      --font-mono-all: "IBM Plex Mono", "Cascadia Mono", Consolas, "Courier New", monospace;
+      --font-ui: var(--font-mono-all) !important;
+      --font-display: var(--font-mono-all) !important;
+      --font-condensed: var(--font-mono-all) !important;
+      --font-heavy: var(--font-mono-all) !important;
+      --font-mono: var(--font-mono-all) !important;
+    }
+    html, body, button, input, textarea, select, summary, details, div, span, p, h1, h2, h3, label, small, strong {
+      font-family: var(--font-mono-all) !important;
+      font-feature-settings: "kern" 1, "liga" 0, "zero" 1;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+    h1 {
+      font-size: 32px !important;
+      line-height: .9 !important;
+      font-weight: 700 !important;
+      letter-spacing: -.075em !important;
+      text-transform: lowercase !important;
+    }
+    .tagline {
+      font-size: 11px !important;
+      line-height: 1.05 !important;
+      font-style: normal !important;
+      font-weight: 600 !important;
+      letter-spacing: .04em !important;
+      text-transform: lowercase !important;
+      color: #6e6258 !important;
+    }
+    #comboName {
+      font-size: 18px !important;
+      line-height: 1.05 !important;
+      font-weight: 700 !important;
+      letter-spacing: -.055em !important;
+      text-transform: lowercase !important;
+    }
+    .combo-numbers, .combo-strip small {
+      font-size: 9px !important;
+      font-weight: 600 !important;
+      letter-spacing: -.015em !important;
+    }
+    .btn {
+      font-size: 12px !important;
+      font-weight: 700 !important;
+      letter-spacing: -.015em !important;
+      text-transform: uppercase !important;
+    }
+    details.section > summary, .drawer-title {
+      font-size: 15px !important;
+      font-weight: 700 !important;
+      letter-spacing: -.025em !important;
+      text-transform: uppercase !important;
+    }
+    .role-label, .field-label, .active-pill, .filter, .chart-top, .metric-top span {
+      font-size: 10px !important;
+      font-weight: 700 !important;
+      letter-spacing: .015em !important;
+      text-transform: uppercase !important;
+    }
+    .role-num, .color-num, .saved-title, .saved-meta, .metric-top strong {
+      font-weight: 700 !important;
+      letter-spacing: -.045em !important;
+    }
+    .color-name, .saved-by, .saved-note, .drawer-sub, .search, .save-body input, .save-body textarea, .save-body input::placeholder, .save-body textarea::placeholder, .search::placeholder {
+      font-size: 11px !important;
+      font-weight: 500 !important;
+      letter-spacing: -.025em !important;
+      font-style: normal !important;
+    }
+    .color-name { font-size: 9px !important; line-height: 1.1 !important; }
+    .search, .save-body input, .save-body textarea {
+      font-size: 12px !important;
+      letter-spacing: -.02em !important;
+    }
+    @media (min-width: 721px) {
+      h1 { font-size: 38px !important; }
+      .tagline { font-size: 13px !important; }
+      #comboName { font-size: 20px !important; }
+      .btn { font-size: 13px !important; }
+      details.section > summary, .drawer-title { font-size: 17px !important; }
     }
 
   </style>
